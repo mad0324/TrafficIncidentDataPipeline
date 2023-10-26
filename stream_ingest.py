@@ -6,12 +6,12 @@ from s3fs import S3FileSystem
 
 def kafka_consumer():
     s3 = S3FileSystem()
-    DIR = "s3://ece5984-bucket-mdavies1/Homework1/stream"            # Add S3 bucket location
-    t_end = time.time() + 60 * 1  # Amount of time data is sent for
+    DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # Add S3 bucket location
+    t_end = time.time() + 60 * 5                            # Amount of time data is sent for UPDATE WITH produce.py
     while time.time() < t_end:
         consumer = KafkaConsumer(
-            'CryptoData',  # add Topic name here
-            bootstrap_servers=['54.196.246.52:9104'],  # add your IP and port number here
+            'TrafficIncidents',                             # Topic name
+            bootstrap_servers=['<IP>:<Port>'],              # IP and port number
             value_deserializer=lambda x: loads(x.decode('utf-8')))
 
         for count, i in enumerate(consumer):
