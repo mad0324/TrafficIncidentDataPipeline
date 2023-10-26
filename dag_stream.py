@@ -19,10 +19,9 @@ default_args = {
 dag = DAG(
     'stream_ingest_dag',
     default_args=default_args,
-    description='ingest crypto data',
+    description='ingest traffic data',
     schedule_interval=timedelta(days=1),
 )
-
 
 kafka_cons = PythonOperator(
     task_id='consume_data',

@@ -15,7 +15,7 @@ def kafka_consumer():
             value_deserializer=lambda x: loads(x.decode('utf-8')))
 
         for count, i in enumerate(consumer):
-            with s3.open("{}/crypto_data_{}.json".format(DIR, count),
+            with s3.open("{}/traffic_data_{}.json".format(DIR, count),
                          'w') as file:
                 json.dump(i.value, file)
     print("done consuming")
