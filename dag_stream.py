@@ -17,7 +17,7 @@ default_args = {
 }
 
 dag = DAG(
-    'stream_ingest_dag_hw1',
+    'stream_ingest_dag',
     default_args=default_args,
     description='ingest crypto data',
     schedule_interval=timedelta(days=1),
