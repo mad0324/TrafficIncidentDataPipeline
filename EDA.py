@@ -1,7 +1,4 @@
-import io
 import json
-
-import numpy as np
 import pandas as pd
 from io import StringIO
 from ydata_profiling import ProfileReport
@@ -10,7 +7,7 @@ from ydata_profiling import ProfileReport
 f = open('traffic_data_0.json', mode='r')
 df = pd.read_json(StringIO(json.load(f)))
 f.close()
-for i in range(1, 10):
+for i in range(1, 10):  # Add the next nine files
     f = open(f'traffic_data_{i}.json', mode='r')
     df = pd.concat([df, pd.read_json(StringIO(json.load(f)))], axis=0)
     f.close()
@@ -27,10 +24,7 @@ print("Display first 5 rows")
 print(df.head(5).to_string())
 print("====================================")
 
-
-# Getting a feel of the dataset
 # Basic EDA functions
-
 print("Basic Dataframe info")
 print(df.info())
 print("====================================")
@@ -54,12 +48,5 @@ print("What are the start times?")
 print(df["Start Time"].value_counts())
 
 # Automatic profiling
-
 profile = ProfileReport(df, title="Profiling Report")
 profile.to_file("profile_report.html")
-
-
-
-
-
-
