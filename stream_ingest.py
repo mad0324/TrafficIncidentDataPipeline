@@ -8,11 +8,11 @@ from s3fs import S3FileSystem
 def kafka_consumer():
     s3 = S3FileSystem()
     DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # Add S3 bucket location
-    t_end = time.time() + 60 * 5  # Amount of time data is sent for UPDATE WITH produce.py
+    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH produce.py
     while time.time() < t_end:
         consumer = KafkaConsumer(
             'TrafficIncidents',  # Topic name
-            bootstrap_servers=['3.235.223.243:<Port>'],  # IP and port number
+            bootstrap_servers=['3.235.223.243:9120'],  # IP and port number
             value_deserializer=lambda x: loads(x.decode('utf-8')))
 
         for count, i in enumerate(consumer):

@@ -7,7 +7,7 @@ from json import dumps
 
 
 def kafka_producer():
-    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:<Port>'],  # change ip and port number here
+    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9120'],  # change ip and port number here
                              value_serializer=lambda x:
                              dumps(x).encode('utf-8'))
 
@@ -29,7 +29,7 @@ def kafka_producer():
                   'categoryFilter': category_filter, 'timeValidityFilter': time_validity_filter}
 
     interval = 60  # Amount of time between calls
-    t_end = time.time() + 60 * 5  # Amount of time data is sent for UPDATE WITH stream_ingest.py
+    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH stream_ingest.py
     while time.time() < t_end:
         response = requests.get(base_url, params=parameters)
         snapshot = response.json()
