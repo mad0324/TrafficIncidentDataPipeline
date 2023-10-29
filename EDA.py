@@ -4,6 +4,7 @@ import json
 import numpy as np
 import pandas as pd
 from io import StringIO
+from ydata_profiling import ProfileReport
 
 # Create dataframe from JSON data
 f = open('traffic_data_0.json', mode='r')
@@ -39,14 +40,23 @@ print("====================================")
 print("Number of Empty values in each column:")
 print(df.isnull().sum().sort_values(ascending=False))
 print("====================================")
-print("Number of Unique values in each column:")
-# print(df.apply(pd.Series.nunique))
+print("Number of Unique values in each column (Exclude Coordinates):")
+print(df.drop(columns=["Coordinates"]).apply(pd.Series.nunique))
 print("====================================")
-print("Are there duplicate rows?")
-# print(df.duplicated())
+print("Are there duplicate rows? Exclude Coordinates")
+print(df.drop(columns=["Coordinates"]).duplicated())
 print("====================================")
 
+# Detailed investigation
+print("Which categories are encountered?")
+print(df["Category"].unique())
+print("What are the start times?")
+print(df["Start Time"].value_counts())
 
+# Automatic profiling
+
+profile = ProfileReport(df, title="Profiling Report")
+profile.to_file("profile_report.html")
 
 
 
