@@ -29,7 +29,7 @@ def kafka_producer():
                   'categoryFilter': category_filter, 'timeValidityFilter': time_validity_filter}
 
     interval = 60  # Amount of time between calls
-    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH stream_ingest.py
+    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH ingest.py
     while time.time() < t_end:
         response = requests.get(base_url, params=parameters)
         snapshot = response.json()

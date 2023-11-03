@@ -5,7 +5,7 @@ from airflow.utils.dates import days_ago
 from datetime import datetime
 
 # Import steps from other files
-from stream_ingest import kafka_consumer
+from ingest import kafka_consumer
 from transform import transform_data
 
 default_args = {
