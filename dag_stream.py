@@ -29,4 +29,10 @@ kafka_cons = PythonOperator(
     dag=dag,
 )
 
-kafka_cons
+transform = PythonOperator(
+    task_id='transform_data',
+    python_callable=transform_data,
+    dag=dag,
+)
+
+kafka_cons >> transform
