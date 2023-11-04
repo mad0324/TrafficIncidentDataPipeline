@@ -1,8 +1,11 @@
-from datetime import timedelta
+# Airflow imports
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
+
+# Other imports
 from datetime import datetime
+from datetime import timedelta
 
 # Import steps from other files
 from ingest import kafka_consumer
@@ -23,7 +26,7 @@ dag = DAG(
     'stream_ingest_dag',
     default_args=default_args,
     description='ingest traffic data',
-    schedule_interval=timedelta(days=1),
+    schedule_interval=timedelta(minutes=1),
 )
 
 kafka_cons = PythonOperator(

@@ -7,7 +7,7 @@ from json import dumps
 
 
 def kafka_producer():
-    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9120'],  # change ip and port number here
+    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9120'],  # Change IP and port number here
                              value_serializer=lambda x:
                              dumps(x).encode('utf-8'))
 
@@ -28,17 +28,12 @@ def kafka_producer():
     parameters = {'bbox': bounding_box, 'fields': fields, 'key': key, 'language': language,
                   'categoryFilter': category_filter, 'timeValidityFilter': time_validity_filter}
 
-    interval = 60  # Amount of time between calls
-    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH ingest.py
+    interval = 60                         # Amount of time between calls
+    t_end = time.time() + interval * 10   # Amount of time data is sent for UPDATE WITH ingest.py, transform.py
     while time.time() < t_end:
         response = requests.get(base_url, params=parameters)
         snapshot = response.json()
         df_stream = pd.json_normalize(snapshot, 'incidents')
-        df_stream.rename({"properties.id": "ID", "properties.iconCategory": "Category",
-                          "properties.magnitudeOfDelay": "Magnitude", "properties.delay": "Delay",
-                          "properties.startTime": "Start Time", "properties.endTime": "End Time",
-                          "geometry.type": "GeoType", "geometry.coordinates": "Coordinates"},
-                         axis=1, inplace=True)
         df_stream['Retrieve Time'] = pd.Timestamp.today().strftime('%Y-%m-%dT%H:%M:%SZ')
         producer.send('TrafficIncidents', value=df_stream.to_json())  # Topic name
         # print(df_stream)

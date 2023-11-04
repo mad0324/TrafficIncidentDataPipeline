@@ -7,8 +7,8 @@ from s3fs import S3FileSystem
 
 def kafka_consumer():
     s3 = S3FileSystem()
-    DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # Add S3 bucket location
-    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH produce.py
+    DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # S3 bucket location
+    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH produce.py, transform.py
     while time.time() < t_end:
         consumer = KafkaConsumer(
             'TrafficIncidents',  # Topic name
