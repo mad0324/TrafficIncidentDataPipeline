@@ -4,13 +4,12 @@ from io import StringIO
 from ydata_profiling import ProfileReport
 
 # Create dataframe from JSON data
-f = open('traffic_data_0.json', mode='r')
-df = pd.read_json(StringIO(json.load(f)))
-f.close()
-for i in range(1, 10):  # Add the next nine files
-    f = open(f'traffic_data_{i}.json', mode='r')
-    df = pd.concat([df, pd.read_json(StringIO(json.load(f)))], axis=0)
-    f.close()
+df_list = []
+for i in range(10):
+    with open(f'traffic_data_{i}.json') as file:
+        data = pd.read_json(StringIO(json.load(file)))
+    df_list.append(data)
+df = pd.concat(df_list, ignore_index=True)
 # Display the complete data
 print("The Dataset looks like:")
 print(df)
