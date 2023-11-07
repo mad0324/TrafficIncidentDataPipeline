@@ -12,7 +12,7 @@ def kafka_consumer():
     while time.time() < t_end:
         consumer = KafkaConsumer(
             'TrafficIncidents',  # Topic name
-            bootstrap_servers=['3.235.223.243:9120'],  # IP and port number
+            bootstrap_servers=['3.235.223.243:9127'],  # IP and port number
             value_deserializer=lambda x: loads(x.decode('utf-8')))
 
         for count, i in enumerate(consumer):

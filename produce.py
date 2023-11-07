@@ -7,7 +7,7 @@ from json import dumps
 
 
 def kafka_producer():
-    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9120'],  # Change IP and port number here
+    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9127'],  # Change IP and port number here
                              value_serializer=lambda x:
                              dumps(x).encode('utf-8'))
 
@@ -36,7 +36,7 @@ def kafka_producer():
         df_stream = pd.json_normalize(snapshot, 'incidents')
         df_stream['Retrieve Time'] = pd.Timestamp.today().strftime('%Y-%m-%dT%H:%M:%SZ')
         producer.send('TrafficIncidents', value=df_stream.to_json())  # Topic name
-        # print(df_stream)
+        print("produced")
         time.sleep(interval)
     print("done producing")
 

@@ -1,30 +1,31 @@
 # import s3fs
-# from s3fs.core import S3FileSystem
+from s3fs.core import S3FileSystem
 import numpy as np
 import pandas as pd
+import pickle
 from io import StringIO
 import json
-import pickle
 
 
 def transform_data():
-    # # Get data from S3 bucket in a single dataframe (pipeline)
-    # s3 = S3FileSystem()
-    # # S3 bucket directory (data lake)
-    # DIR_lk = 's3://ece5984-bucket-mdavies1/Project/data_lake'  # S3 bucket location
-    # df_list = []
-    # for i in range(10):     # Number of files starting with 'traffic_data_0.json' to transform
-    #     data = np.load(s3.open('{}/{}'.format(DIR_lk, f'traffic_data_{i}.json')))
-    #     df_list.append(data)
-    # df = pd.concat(df_list, ignore_index=True)
-
-    # Get data from files in a single dataframe (local)
+    # Get data from S3 bucket in a single dataframe (pipeline)
+    s3 = S3FileSystem()
+    # S3 bucket directory (data lake)
+    DIR_lk = 's3://ece5984-bucket-mdavies1/Project/data_lake'  # S3 bucket location
     df_list = []
-    for i in range(10):     # Number of files starting with 'traffic_data_0.json' to transform
-        with open(f'traffic_data_{i}.json') as file:
+    for i in range(10):     # Number of files matching pattern 'traffic_data_{#}.json' to transform
+        with s3.open('{}/{}'.format(DIR_lk, f'traffic_data_{i}.json')) as file:
             data = pd.read_json(StringIO(json.load(file)))
         df_list.append(data)
     df = pd.concat(df_list, ignore_index=True)
+
+    # # Get data from files in a single dataframe (local)
+    # df_list = []
+    # for i in range(10):     # Number of files matching pattern 'traffic_data_{#}.json' to transform
+    #     with open(f'traffic_data_{i}.json') as file:
+    #         data = pd.read_json(StringIO(json.load(file)))
+    #     df_list.append(data)
+    # df = pd.concat(df_list, ignore_index=True)
 
     # Rename columns
     df.rename({"properties.id": "ID", "properties.iconCategory": "Category",
@@ -40,10 +41,10 @@ def transform_data():
     print(df.head(5).to_string())
     print(df.info())
 
-    # # Push transformed data to S3 bucket warehouse
-    # DIR_wh = 's3://ece5984-bucket-mdavies1/Project/data_warehouse'  # Insert here
-    # with s3.open('{}/{}'.format(DIR_wh, 'clean_traffic_data.pkl'), 'wb') as f:
-    #     f.write(pickle.dumps(df))
+    # Push transformed data to S3 bucket warehouse
+    DIR_wh = 's3://ece5984-bucket-mdavies1/Project/data_warehouse'  # Insert here
+    with s3.open('{}/{}'.format(DIR_wh, 'clean_traffic_data.pkl'), 'wb') as f:
+        f.write(pickle.dumps(df))
 
 
 def get_category_name(category):
