@@ -10,6 +10,7 @@ from datetime import timedelta
 # Import steps from other files
 from ingest import kafka_consumer
 from transform import transform_data
+from load_db import load_data
 
 default_args = {
     'owner': 'airflow',
@@ -41,4 +42,10 @@ transform = PythonOperator(
     dag=dag,
 )
 
-kafka_cons >> transform
+load_db = PythonOperator(
+    task_id='push_to_db',
+    python_callable=load_data,
+    dag=dag,
+)
+
+kafka_cons >> transform >> load_db
