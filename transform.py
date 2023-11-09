@@ -38,6 +38,9 @@ def transform_data():
     df['Category_Name'] = df['Category'].apply(get_category_name)
     df['Magnitude_Name'] = df['Magnitude'].apply(get_magnitude_name)
 
+    # Convert coordinates to JSON to enable sqlalchemy to load into RDB
+    df['Coordinates'] = df['Coordinates'].apply(json.dumps)
+
     print(df.head(5).to_string())
     print(df.info())
 
@@ -89,4 +92,4 @@ def get_magnitude_name(magnitude):
         return 'Unknown'
 
 
-transform_data()
+# transform_data()
