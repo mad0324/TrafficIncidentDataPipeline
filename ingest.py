@@ -8,8 +8,8 @@ from s3fs import S3FileSystem
 def kafka_consumer():
     s3 = S3FileSystem()
     DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # S3 bucket location
-    interval = 60       # Amount of time between calls
-    call_count = 60     # Number of api calls
+    interval = 60   # Amount of time between calls
+    call_count = 60 # Number of api calls
     t_end = time.time() + interval * call_count  # Amount of time data is sent for
     consumer = KafkaConsumer(
         'TrafficIncidents',  # Topic name
