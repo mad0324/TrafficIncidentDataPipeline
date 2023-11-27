@@ -11,7 +11,7 @@ def transform_data():
     # Get data from S3 bucket in a single dataframe (pipeline)
     s3 = S3FileSystem()
     # S3 bucket directory (data lake)
-    DIR_lk = 's3://ece5984-bucket-mdavies1/Project/data_lake'  # S3 bucket location
+    DIR_lk = 's3://ece5984-bucket-mdavies1/Project/data_lake'
     df_list = []
     for i in range(60):     # Number of files matching pattern 'traffic_data_{#}.json' to transform
         with s3.open('{}/{}'.format(DIR_lk, f'traffic_data_{i}.json')) as file:

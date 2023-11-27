@@ -42,10 +42,5 @@ transform = PythonOperator(
     dag=dag,
 )
 
-load_db = PythonOperator(
-    task_id='push_to_db',
-    python_callable=load_data,
-    dag=dag,
-)
 
-kafka_cons >> transform >> load_db
+kafka_cons >> transform
