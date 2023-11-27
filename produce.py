@@ -28,16 +28,16 @@ def kafka_producer():
     parameters = {'bbox': bounding_box, 'fields': fields, 'key': key, 'language': language,
                   'categoryFilter': category_filter, 'timeValidityFilter': time_validity_filter}
 
-    interval = 60   # Amount of time between calls
-    call_count = 60 # Number of api calls
-    t_end = time.time() + interval * call_count    # Amount of time data is sent for UPDATE WITH ingest.py, transform.py
+    interval = 60       # Amount of time between calls
+    call_count = 60     # Number of api calls
+    t_end = time.time() + interval * call_count  # Production end time
     while time.time() < t_end:
         response = requests.get(base_url, params=parameters)
         snapshot = response.json()
         df_stream = pd.json_normalize(snapshot, 'incidents')
         df_stream['Retrieve Time'] = pd.Timestamp.today().strftime('%Y-%m-%dT%H:%M:%SZ')
         producer.send('TrafficIncidents', value=df_stream.to_json())  # Topic name
-        print("produced")
+        print("produced at " + pd.Timestamp.today().strftime('%Y-%m-%dT%H:%M:%SZ'))
         time.sleep(interval)
     print("done producing")
 
