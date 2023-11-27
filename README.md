@@ -55,8 +55,6 @@ This project is not radically innovative. Traffic incidents are a heavilty inspe
 
 The most interesting next step with this project would be to tighten the streaming pipeline such that as data is gathered, it is visualized in close to real time. There are several technical difficulties surrounding this proposition, primarily (1) transformation occurs after all streaming ingestion is complete, (2) manual intervention is required between data transformation and data analysis, and (3) Tableau Desktop does not allow automatic continuous session data updates without user action. Each of these problems would need to be solved as part of the next phase of the project.
 
-This critically assesses the viability of your idea: Based on the results of this project (your pilot project, your prototype, etc), from a technical leadership point of view, what are your conclusions or recommendations for continuing this project in terms of scaling it up? How would you assess the innovativeness of your project? Any technical or platform concerns, difficulties, or limitations of the pipeline for the project? Based on your experience and results, what next step would you recommend to take this project to the next level/phase?
-
 ## Code
 To replicate this project, download the [repository](https://github.com/mad0324/TrafficIncidentDataPipeline) as a zip file by clicking **Code** above the list of files, then **Download ZIP**. Follow the instructions in the **Special Instruction** and **Replicating this Project** sections below.
 
