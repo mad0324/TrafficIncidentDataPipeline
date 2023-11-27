@@ -2,7 +2,6 @@ import s3fs
 from s3fs.core import S3FileSystem
 import numpy as np
 import pandas as pd
-import pickle
 from io import StringIO
 import json
 import datetime
@@ -44,20 +43,19 @@ def transform_data():
     df_explode = df.explode('Coordinates', True)
     df_explode[['Longitude', 'Latitude']] = pd.DataFrame(df_explode['Coordinates'].tolist(), df_explode.index)
 
-    # # Convert coordinates to JSON to enable sqlalchemy to load into RDB
-    # df['Coordinates'] = df['Coordinates'].apply(json.dumps)
-
     # # Format checking
     # print(df_explode.head(5).to_string())
 
     # # Push transformed data to S3 bucket warehouse
-    DIR_wh = 's3://ece5984-bucket-mdavies1/Project/data_warehouse'  # Insert here
-    with s3.open('{}/{}'.format(DIR_wh, 'clean_traffic_data.pkl'), 'wb') as f:
-        f.write(pickle.dumps(df))
+    DIR_wh = 's3://ece5984-bucket-mdavies1/Project/data_warehouse'
+    with s3.open('{}/{}'.format(DIR_wh, 'clean_traffic_data.csv'), 'wb') as f:
+        df.to_csv(f, index=False)
+    with s3.open('{}/{}'.format(DIR_wh, 'clean_traffic_data_exploded.csv'), 'wb') as f:
+        df_explode.to_csv(f, index=False)
 
-    # Create transformed CSV locally
-    df.to_csv('clean_traffic_data.csv', encoding='utf-8', index=False)
-    df_explode.to_csv('clean_traffic_data_exploded.csv', encoding='utf-8', index=False)
+    # # Create transformed CSV locally
+    # df.to_csv('clean_traffic_data.csv', encoding='utf-8', index=False)
+    # df_explode.to_csv('clean_traffic_data_exploded.csv', encoding='utf-8', index=False)
 
 
 def get_category_name(category):
