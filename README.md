@@ -19,7 +19,7 @@ _Data Analytics:_ CSV files from the data warehouse are downloaded locally to be
 _Orchestration:_ The pipeline, from ingestion through transformation, is orchestrated using **Apache Airflow**.
 
 ### Pipeline Infographic
-![alt text](FinalPipeline.png)
+![alt text](graphics/FinalPipeline.png)
 
 ## Data Quality Assessment
 The quality of this dataset is high. The data conforms to expected formats and values for all fields, with no unrealistic outliers. Exploratory data analysis was performed using the included [EDA file](EDA.py). This script will also allow the generation of a data profile report of any JSON files generated during the ingest portion of the pipeline.
@@ -37,10 +37,10 @@ Because of the high quality of the dataset, transformation of ingested data fiel
 The final result of this project is a visualization of real time data collected and processed by the streaming pipeline. Below is the animation of the final dashboard for data generated between 11:46 and 12:47 on Monday, November 27th, 2023, in addition to a still image of the point in time 11/27/23 12:46 PM.
 
 ### Dashboard Animation
-![alt text](DashboardAnimation.gif)
+![alt text](graphics/DashboardAnimation.gif)
 
 ### Dashboard Snapshot
-![alt Text](DashboardStill.png)
+![alt Text](graphics/DashboardStill.png)
 
 ## Thorough Investigation
 This critically assesses the viability of your idea: Based on the results of this project (your pilot project, your prototype, etc), from a technical leadership point of view, what are your conclusions or recommendations for continuing this project in terms of scaling it up? How would you assess the innovativeness of your project? Any technical or platform concerns, difficulties, or limitations of the pipeline for the project? Based on your experience and results, what next step would you recommend to take this project to the next level/phase?
