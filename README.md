@@ -8,7 +8,7 @@ A frequent problem faced by both individual travelers and navigation application
 This project uses TomTom traffic data as its dataset. The primary endpoint used is the Incident Details service, an endpoint within the Traffic Incidents service segment of the TomTom Traffic API. Incident Details is limited in geographical extent to 10,000 square kilometers. To remain within this limitation, the visualization will focus on the Fairfax/Arlington/Alexandria area of Northern Virginia and its immediate surroundings.
 
 ## Pipeline / Architecture
-This project uses the Stream -> Visualization pipeline. The pipeline diagram in the Pipeline Infographic section below displays the tools and data flow.
+This project uses the Stream -> Visualization pipeline. The pipeline diagram in the Pipeline Infographic section below displays the tools and data flow used.
 
 _Stream Ingestion:_ Data is ingested from the **TomTom Traffic API** Incident Details endpoint into an **Amazon S3** data lake. Data from the API calls is extracted and loaded using **Apache Kafka**.
 
@@ -18,7 +18,7 @@ _Data Analytics:_ CSV files from the data warehouse are downloaded locally to be
 
 _Orchestration:_ The pipeline, from ingestion through transformation, is orchestrated using **Apache Airflow**.
 
-## Pipeline Infographic
+### Pipeline Infographic
 ![alt text](FinalPipeline.png)
 
 ## Data Quality Assessment
