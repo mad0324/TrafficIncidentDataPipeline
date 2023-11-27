@@ -29,7 +29,7 @@ def kafka_producer():
                   'categoryFilter': category_filter, 'timeValidityFilter': time_validity_filter}
 
     interval = 60                                  # Amount of time between calls
-    call_count = 10                                # Number of api calls
+    call_count = 60                                # Number of api calls
     t_end = time.time() + interval * call_count    # Amount of time data is sent for UPDATE WITH ingest.py, transform.py
     while time.time() < t_end:
         response = requests.get(base_url, params=parameters)
