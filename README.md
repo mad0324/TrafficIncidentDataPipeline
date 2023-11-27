@@ -33,6 +33,9 @@ Because of the high quality of the dataset, transformation of ingested data fiel
   - Delay duration in human readable time format
 - Secondary exploded data set with one row for each geometry coordinate to enable map display
 
+### Data Provenance
+All data for this project originates from traffic information collected by TomTom via a combination of anonymous user GPS measurements, field surveys, aerial and satellite imagery, and mobile mapping vans. The result of this collection is an authentic, trustworthy dataset. Any changes to the data using this pipeline are cosmetic as described in this transformation section, using Python `pandas` dataframe manipulation. Changes are made in real time whenever new data is collected over the pipeline.
+
 ## Final Results
 The final result of this project is a visualization of real time data collected and processed by the streaming pipeline. Below is the animation of the final dashboard for data generated between 11:46 and 12:47 on Monday, November 27th, 2023, in addition to a still image of the point in time 11/27/23 12:46 PM.
 
@@ -43,6 +46,8 @@ The final result of this project is a visualization of real time data collected 
 ![alt Text](graphics/DashboardStill.png)
 
 ## Thorough Investigation
+
+
 This critically assesses the viability of your idea: Based on the results of this project (your pilot project, your prototype, etc), from a technical leadership point of view, what are your conclusions or recommendations for continuing this project in terms of scaling it up? How would you assess the innovativeness of your project? Any technical or platform concerns, difficulties, or limitations of the pipeline for the project? Based on your experience and results, what next step would you recommend to take this project to the next level/phase?
 
 ## Code
