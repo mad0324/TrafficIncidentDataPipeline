@@ -8,7 +8,7 @@ A frequent problem faced by both individual travelers and navigation application
 This project uses TomTom traffic data as its dataset. The primary endpoint used is the Incident Details service, an endpoint within the Traffic Incidents service segment of the TomTom Traffic API. Incident Details is limited in geographical extent to 10,000 square kilometers. To remain within this limitation, the visualization will focus on the Fairfax/Arlington/Alexandria area of Northern Virginia and its immediate surroundings.
 
 ## Pipeline / Architecture
-This project uses the Stream -> Visualization pipeline. The pipeline diagram in the Pipeline Infographic section below displays the tools and data flow.
+This project uses the Stream -> Visualization pipeline. The pipeline diagram in the Pipeline Infographic section below displays the tools and data flow used.
 
 _Stream Ingestion:_ Data is ingested from the **TomTom Traffic API** Incident Details endpoint into an **Amazon S3** data lake. Data from the API calls is extracted and loaded using **Apache Kafka**.
 
@@ -18,11 +18,11 @@ _Data Analytics:_ CSV files from the data warehouse are downloaded locally to be
 
 _Orchestration:_ The pipeline, from ingestion through transformation, is orchestrated using **Apache Airflow**.
 
-## Pipeline Infographic
-
+### Pipeline Infographic
+![alt text](FinalPipeline.png)
 
 ## Data Quality Assessment
-The quality of this dataset is high. The data conforms to expected formats and values for all fields, with no unrealistic outliers. Exploratory data analysis was performed using the included [EDA file](TrafficIncidentDataPipeline/EDA.py). This script will also allow the generation of a data profile report of any JSON files generated during the ingest portion of the pipeline.
+The quality of this dataset is high. The data conforms to expected formats and values for all fields, with no unrealistic outliers. Exploratory data analysis was performed using the included [EDA file](EDA.py). This script will also allow the generation of a data profile report of any JSON files generated during the ingest portion of the pipeline.
 
 ## Data Transformation
 Because of the high quality of the dataset, transformation of ingested data fields proved unnecessary. The following additions were made during the transformation process in order to facilitate visualization:
