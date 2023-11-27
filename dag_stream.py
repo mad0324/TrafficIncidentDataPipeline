@@ -10,7 +10,6 @@ from datetime import timedelta
 # Import steps from other files
 from ingest import kafka_consumer
 from transform import transform_data
-from load_db import load_data
 
 default_args = {
     'owner': 'airflow',

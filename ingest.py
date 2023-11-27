@@ -15,7 +15,7 @@ def kafka_consumer():
 
     consumer = KafkaConsumer(
         'TrafficIncidents',  # Topic name
-        bootstrap_servers=['3.235.223.243:9092'],  # IP and port number
+        bootstrap_servers=['3.235.223.243:9098'],  # IP and port number
         consumer_timeout_ms=100000,
         value_deserializer=lambda x: loads(x.decode('utf-8')))
 

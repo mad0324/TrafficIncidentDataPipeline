@@ -106,4 +106,4 @@ def get_delay_duration(delay):
     return str(datetime.timedelta(seconds=delay))
 
 
-transform_data()
+# transform_data()
