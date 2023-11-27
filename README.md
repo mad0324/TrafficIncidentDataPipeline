@@ -19,7 +19,6 @@ _Data Analytics:_ CSV files from the data warehouse are downloaded locally to be
 _Orchestration:_ The pipeline, from ingestion through transformation, is orchestrated using **Apache Airflow**.
 
 ### Pipeline Infographic
-![alt text](FinalPipeline.png)
 
 ## Data Quality Assessment
 The quality of this dataset is high. The data conforms to expected formats and values for all fields, with no unrealistic outliers. Exploratory data analysis was performed using the included [EDA file](EDA.py). This script will also allow the generation of a data profile report of any JSON files generated during the ingest portion of the pipeline.
