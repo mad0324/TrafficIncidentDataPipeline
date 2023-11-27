@@ -24,10 +24,10 @@ default_args = {
 }
 
 dag = DAG(
-    'stream_ingest_dag',
+    'traffic_stream_dag',
     default_args=default_args,
-    description='ingest traffic data',
-    schedule_interval=timedelta(minutes=1),
+    description='process traffic data',
+    schedule_interval=timedelta(days=1),
 )
 
 kafka_cons = PythonOperator(

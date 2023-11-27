@@ -8,15 +8,17 @@ from s3fs import S3FileSystem
 def kafka_consumer():
     s3 = S3FileSystem()
     DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # S3 bucket location
-    t_end = time.time() + 60 * 10  # Amount of time data is sent for UPDATE WITH produce.py, transform.py
+    interval = 60  # Amount of time between calls
+    call_count = 10  # Number of api calls
+    t_end = time.time() + interval * call_count  # Amount of time data is sent for UPDATE WITH produce.py, transform.py
+    consumer = KafkaConsumer(
+        'TrafficIncidents',  # Topic name
+        bootstrap_servers=['3.235.223.243:9092'],  # IP and port number
+        value_deserializer=lambda x: loads(x.decode('utf-8')))
     while time.time() < t_end:
-        consumer = KafkaConsumer(
-            'TrafficIncidents',  # Topic name
-            bootstrap_servers=['3.235.223.243:9133'],  # IP and port number
-            value_deserializer=lambda x: loads(x.decode('utf-8')))
-
         for count, i in enumerate(consumer):
             with s3.open("{}/traffic_data_{}.json".format(DIR, count),
                          'w') as file:
                 json.dump(i.value, file)
+    consumer.close()
     print("done consuming")

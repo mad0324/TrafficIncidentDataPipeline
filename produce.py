@@ -7,7 +7,7 @@ from json import dumps
 
 
 def kafka_producer():
-    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9133'],  # Change IP and port number here
+    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9092'],  # Change IP and port number here
                              value_serializer=lambda x:
                              dumps(x).encode('utf-8'))
 
@@ -28,8 +28,9 @@ def kafka_producer():
     parameters = {'bbox': bounding_box, 'fields': fields, 'key': key, 'language': language,
                   'categoryFilter': category_filter, 'timeValidityFilter': time_validity_filter}
 
-    interval = 60                         # Amount of time between calls
-    t_end = time.time() + interval * 10   # Amount of time data is sent for UPDATE WITH ingest.py, transform.py
+    interval = 60                                  # Amount of time between calls
+    call_count = 10                                # Number of api calls
+    t_end = time.time() + interval * call_count    # Amount of time data is sent for UPDATE WITH ingest.py, transform.py
     while time.time() < t_end:
         response = requests.get(base_url, params=parameters)
         snapshot = response.json()
