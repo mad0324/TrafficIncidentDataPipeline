@@ -1,5 +1,7 @@
 # Real Time Traffic Incident Visualization
 
+Michael Davies
+
 ## Project Function
 The purpose of this project is to visualize real-time traffic incidents in the Northern Virginia Area.
 A frequent problem faced by both individual travelers and navigation applications is the unexpected nature and high-impact effect of traffic incidents. When a traffic incident occurs—be it roadwork, an accident, or a naturally occurring traffic jam—routes and arrival times can be significantly affected. The goal of this project is to solve the problem of identifying and analyzing these incidents by visualizing their location and impact in order to improve navigation planning.
