@@ -76,9 +76,123 @@ In order to run this project, an environment must be set up matching the VTMIT E
 ### Code Modifications
 
 The following changes must be made to point to the correct S3 locations:
-- ingest.py
-  - change the ~DIR~ variable to point to your S3 data lake location
-- transform.py
-  - change the ~DIR_lk~ variable to point to your S3 data lake location
-  - change the ~DIR_wh~ variable to point to your S3 data warehouse location
+- `ingest.py`
+  - change the `DIR` variable to point to your S3 data lake location
+- `transform.py`
+  - change the `DIR_lk` variable to point to your S3 data lake location
+  - change the `DIR_wh` variable to point to your S3 data warehouse location
 
+### Step 1: Connect to EC2 Instance
+
+Connect to your EC2 instance, making a note of the current IP address.
+
+Update `produce.py` with this IP address in the kafka producer.
+
+Update `ingest.py` with this IP address in the kafka consumer.
+
+### Step 2: Start Container and Install Packages
+
+Within your EC2 instance, spin up a docker container 
+
+`$ docker run --rm -it --entrypoint bash -v /home/ubuntu/efs-mount-point/<username>/<id>/root:/root -p 8080-8131:8080 -p 9092-9143:9092 --name <id> <image-name-or-id>`
+
+Install required packages
+
+`pip install pandas-datareader`
+`pip install requests`
+
+### Step 3: Update Port Numbers
+
+Open a new EC2 instance and retrieve the port numbers for your container
+
+`$ docker ps`
+
+Update `produce.py` with the 9XXX port number in the kafka producer.
+
+Update `ingest.py` with the 9XXX port number in the kafka consumer.
+
+### Step 4: Create DAG Files
+
+Within your docker container, navigate to the airflow dags directory.
+
+`$ cd airflow/dags`
+
+Create files and copy into their contents from your local modified copies.
+
+`$ sudo nano dag_stream.py`
+
+`$ sudo nano ingest.py`
+
+`$ sudo nano transform.py`
+
+### Step 5: Start Airflow
+
+Within your docker container, start airflow.
+
+`$ airflow standalone`
+
+Leave this EC2 instance running.
+
+### Step 6: Update Kafka Settings
+
+Open a new EC2 instance and update kafka settings.
+
+`$ docker exec -it <id> bash`
+
+`$ cd /home/kafka_2.13-3.5.0/`
+
+`$ export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"`
+
+Open `server.properties` and change line `#advertised.listeners=PLAINTEXT://0.0.0.0:9092` to be uncommented, and to use your IP and 9XXX port instead of `0.0.0.0:9092`.
+
+`$ sudo nano config/server.properties`
+
+### Step 7: Run Zookeeper
+
+Start zookeeper.
+
+`bin/zookeeper-server-start.sh config/zookeeper.properties`
+
+Leave this EC2 instance running.
+
+### Step 8: Run Kafka Broker
+
+Open a new EC2 instance to start the kafka broker.
+
+`$ docker exec -it <id> bash`
+
+`$ cd /home/kafka_2.13-3.5.0/`
+
+`$ bin/kafka-server-start.sh config/server.properties`
+
+Leave this EC2 instance running.
+
+### Step 9: Create Kafka Topic and Monitor Consumer
+
+Open a new EC2 instance to create the kafka topic.
+
+`$ docker exec -it <id> bash`
+
+`$ cd /home/kafka_2.13-3.5.0/`
+
+`$ bin/kafka-topics.sh --create --topic TrafficIncidents --bootstrap-server <ip>:<9XXX port> --replication-factor 1 --partitions 1`
+
+(Optional) Run the kafka consumer to monitor consumer activity.
+
+`$ bin/kafka-console-consumer.sh --topic TrafficIncidents --bootstrap-server <ip>:<9XXX port>`
+
+### Step 10: Run DAG from Airflow
+
+Launch the airflow GUI in a new browser window using your IP and 8XXX port number.
+
+From within airflow, click to open the `traffic_stream_dag` DAG. Click the play button to run it.
+
+After clicking the play button, run your `produce.py` locally to produce data.
+
+This process will vary in length depending on the `interval` and `call_count` variables in `produce.py` and `ingest.py`. Default is one hour for 60 API calls.
+
+### Step 11: Retrieve Data and Populate Dashboard
+
+Navigate to the S3 data warehouse location. Download the two files, `clean_traffic_data.csv` and `clean_traffic_data_exploded.csv`. Save them to your local machine.
+
+Open `TrafficIncidentVisualization.twb` in Tableau Desktop. Use **Connect to Data**, **Text File** to point to your CSV file locations. Run the dashboard animation using the Time Slice window play button on the Dashboard tab.
