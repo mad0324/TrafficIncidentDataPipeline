@@ -76,11 +76,13 @@ In order to run this project, an environment must be set up matching the VTMIT E
 ### Code Modifications
 
 The following changes must be made to point to the correct S3 locations:
+- `produce.py`
+  - change the `key` variable to match your API key from the Special Instructions section.
 - `ingest.py`
-  - change the `DIR` variable to point to your S3 data lake location
+  - change the `DIR` variable to point to your S3 data lake location.
 - `transform.py`
-  - change the `DIR_lk` variable to point to your S3 data lake location
-  - change the `DIR_wh` variable to point to your S3 data warehouse location
+  - change the `DIR_lk` variable to point to your S3 data lake location.
+  - change the `DIR_wh` variable to point to your S3 data warehouse location.
 
 ### Step 1: Connect to EC2 Instance
 
@@ -98,8 +100,9 @@ Within your EC2 instance, spin up a docker container
 
 Install required packages
 
-`pip install pandas-datareader`
-`pip install requests`
+`$ pip install pandas-datareader`
+
+`$ pip install requests`
 
 ### Step 3: Update Port Numbers
 
@@ -151,7 +154,7 @@ Open `server.properties` and change line `#advertised.listeners=PLAINTEXT://0.0.
 
 Start zookeeper.
 
-`bin/zookeeper-server-start.sh config/zookeeper.properties`
+`$ bin/zookeeper-server-start.sh config/zookeeper.properties`
 
 Leave this EC2 instance running.
 
