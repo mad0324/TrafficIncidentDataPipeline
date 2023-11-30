@@ -1,6 +1,6 @@
 # Real Time Traffic Incident Visualization
 
-Michael Davies
+by Michael Davies
 
 ## Project Function
 The purpose of this project is to visualize real-time traffic incidents in the Northern Virginia Area.
