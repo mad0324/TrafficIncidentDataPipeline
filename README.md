@@ -94,11 +94,11 @@ Update `ingest.py` with this IP address in the kafka consumer.
 
 ### Step 2: Start Container and Install Packages
 
-Within your EC2 instance, spin up a docker container 
+Within your EC2 instance, spin up a docker container.
 
 `$ docker run --rm -it --entrypoint bash -v /home/ubuntu/efs-mount-point/<username>/<id>/root:/root -p 8080-8131:8080 -p 9092-9143:9092 --name <id> <image-name-or-id>`
 
-Install required packages
+Install required packages.
 
 `$ pip install pandas-datareader`
 
@@ -106,7 +106,7 @@ Install required packages
 
 ### Step 3: Update Port Numbers
 
-Open a new EC2 instance and retrieve the port numbers for your container
+Open a new EC2 instance and retrieve the port numbers for your container.
 
 `$ docker ps`
 
