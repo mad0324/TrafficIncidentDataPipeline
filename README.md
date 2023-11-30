@@ -53,7 +53,7 @@ Based on the results of this prototype project, this method of data gathering an
 - Increase physical area. This project is currently limited to the geographical box bounded between latitudes 39.0585509 and 38.614582, and longitudes -77.539145 and -77.031028.
 - Increase time of data gathering. This is the simplest scaling option: as long as the resources are available, increasing the `call_count` variable in the code will allow more time for each data gathering event.
 
-This project is not radically innovative. Traffic incidents are a heavilty inspected area, especially with regard to their effect on travel times. The goal of this project is to offer new ways to explore this well known phenomenon.
+This project is not radically innovative. Traffic incidents are a heavily inspected area, especially with regard to their effect on travel times. The goal of this project is to offer new ways to explore this well known phenomenon.
 
 The most interesting next step with this project would be to tighten the streaming pipeline such that as data is gathered, it is visualized in close to real time. There are several technical difficulties surrounding this proposition, primarily (1) transformation occurs after all streaming ingestion is complete, (2) manual intervention is required between data transformation and data analysis, and (3) Tableau Desktop does not allow automatic continuous session data updates without user action. Each of these problems would need to be solved as part of the next phase of the project.
 
