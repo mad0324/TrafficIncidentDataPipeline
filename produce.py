@@ -7,7 +7,7 @@ from json import dumps
 
 
 def kafka_producer():
-    producer = KafkaProducer(bootstrap_servers=['3.235.223.243:9098'],  # Change IP and port number here
+    producer = KafkaProducer(bootstrap_servers=['<IP>:<Port 9XXX>'],  # Change IP and port number here
                              value_serializer=lambda x:
                              dumps(x).encode('utf-8'))
 
@@ -18,7 +18,7 @@ def kafka_producer():
     max_lon = "-77.031028"
     max_lat = "38.614582"
     bounding_box = min_lon + "," + min_lat + "," + max_lon + "," + max_lat
-    key = "iwWqJ7QRNYIgDUGtpkiyuPzrdnYcX3E6"
+    key = "iwWqJ7QRNYIgDUGtpkiyuPzrdnYcX3E6" # Change TomTom API key here
     fields = ("{incidents{geometry{type,coordinates},properties{"
               "id,iconCategory,magnitudeOfDelay,startTime,endTime,delay}}}")
     language = "en-US"

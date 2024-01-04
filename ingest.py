@@ -7,7 +7,7 @@ from s3fs import S3FileSystem
 
 def kafka_consumer():
     s3 = S3FileSystem()
-    DIR = "s3://ece5984-bucket-mdavies1/Project/data_lake"  # S3 bucket location
+    DIR = "s3://<S3 Bucket Location>/Project/data_lake"  # Change S3 bucket location
 
     interval = 60       # Amount of time between calls
     call_count = 60     # Number of api calls
@@ -15,7 +15,7 @@ def kafka_consumer():
 
     consumer = KafkaConsumer(
         'TrafficIncidents',  # Topic name
-        bootstrap_servers=['3.235.223.243:9098'],  # IP and port number
+        bootstrap_servers=['<IP>:<Port 9XXX>'],  # Change IP and port number
         consumer_timeout_ms=100000,
         value_deserializer=lambda x: loads(x.decode('utf-8')))
 
